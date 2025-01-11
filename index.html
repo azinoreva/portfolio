@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    /* General styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .title.is-3 {
+      text-align: center;
+
+    }
+
+    .hero.is-primary {
+      background-color: #fdfdff;
+      height: 100px;
+      top: 0;
+      border-top: 0;
+      margin-top: -10;
+    }
+
+    #section1 {
+      background-color: #F9EBC7;
+      margin-top: 1px;
+      top: 0%;
+      border-top: 0;
+      padding-top: 120px;
+
+    }
+
+    .hero {
+      position: fixed;
+      top: 0;
+      height: 100px;
+      width: 100%;
+      box-shadow: #3357FF;
+    }
+
+    .icon-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .icon-box.highlight {
+      border: 2px solid rgb(224, 224, 166);
+      transform: scale(1.1);
+    }
+
+    .icon-text {
+      margin-left: 10px;
+    }
+
+    @media (max-width: 800px) {
+      .icon-text {
+        display: none;
+      }
+    }
+
+    #projectParagraph {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+
+    }
+
+    @media (max-width: 700px) {
+      #projectParagraph {
+        display: none;
+      }
+    }
+
+
+    .icon-with-text {
+      display: flex;
+      align-items: center;
+    }
+
+    .section {
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    #section2 {
+      background-color: #FEFAE0;
+
+    }
+
+    #section3 {
+      background-color: #f3efe6;
+
+    }
+
+    /* Info Section */
+    .info-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .info-box {
+      flex: 1 4 calc(50% - 20px);
+      background-color: white;
+      border: 1px solid #34393f;
+      border-radius: 15px;
+      padding: 15px;
+      color: #000000;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Drive and Vision Section */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-bubble {
+      max-width: 70%;
+      padding: 20px;
+      border-radius: 15px;
+      font-family: Franklin Gothic Large;
+      font-style: italic;
+      font-size: 20px;
+      color: #000000;
+      font-weight: bold;
+
+    }
+
+    .chat-bubble.drive {
+      background-color: #9ff1ae;
+      align-self: flex-start;
+    }
+
+    .chat-bubble.vision {
+      background-color: #adccee;
+      align-self: flex-end;
+    }
+
+    /* Languages and Tools Section */
+    .lang-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .lang-bubble {
+      max-width: 70%;
+      padding: 20px;
+      border-radius: 15px;
+      font-family: Franklin Gothic Large;
+      font-style: italic;
+      font-size: 20px;
+      color: #000000;
+      font-weight: bold;
+    }
+
+    .lang-bubble:nth-child(odd) {
+      background-color: #f7beb1;
+      align-self: flex-start;
+    }
+
+    .lang-bubble:nth-child(even) {
+      background-color: #c4b698;
+      align-self: flex-end;
+    }
+
+    /* Projects Section */
+    .project-box {
+      padding: 15px;
+      border: 1px solid rgb(235, 177, 177);
+      border-radius: 10px;
+      margin: 10px 0;
+      background-color: white;
+    }
+    
+  </style>
+</head>
+
+
+<body>
+  <!-- Header Section -->
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-mobile">
+          <div class="column">
+            <div id="icon1" class="icon-box" style="background-color: #f08169;">
+              <span class="icon-only">🛈</span>
+              <span class="icon-text">Info</span>
+            </div>
+          </div>
+          <div class="column">
+            <div id="icon2" class="icon-box" style="background-color: #7fec93;">
+              <span class="icon-only">🚗</span>
+              <span class="icon-text">My Drive </span>
+            </div>
+          </div>
+          <div class="column">
+            <div id="icon3" class="icon-box" style="background-color: #9fabdf;">
+              <span class="icon-only">🗣️</span>
+              <span class="icon-text"> Toolbox</span>
+            </div>
+          </div>
+          <div class="column">
+            <div id="icon4" class="icon-box" style="background-color: #ec8dc0;">
+              <span class="icon-only">⚒️</span>
+              <span class="icon-text">Projects</span>
+            </div>
+          </div>
+          <div class="column">
+            <div id="icon5" class="icon-box" style="background-color: #ecbb49;">
+              <span class="icon-only">✉️</span>
+              <span class="icon-text">Contact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <div id="section1" class="section">
+    <h2 class="title is-3">Info</h2>
+    <div class="info-container">
+      <div class="info-box" style=" background-color: #e9cac3">Name:</div>
+      <div class="info-box"> Azino Oreva Precious</div>
+      <div class="info-box" style=" background-color: #f0af9e">Profession:</div>
+      <div class="info-box"> Software Engineer</div>
+      <div class="info-box" style=" background-color: #c3f0d9">Experience:</div>
+      <div class="info-box">3 Years</div>
+      <div class="info-box" style=" background-color: #c3cae9">Worked at:</div>
+      <div class="info-box"> Zynova Studios, Bincom ICT</div>
+      <div class="info-box" style=" background-color: #eecfea">Summary: </div>
+      <div class="info-box">I deliver robust, scalable solutions through innovation and collaboration.</div>
+    </div>
+  </div>
+
+  <!-- Drive and Vision Section -->
+  <div id="section2" class="section">
+    <h2 class="title is-3">Drive & Vision</h2>
+    <div class="chat-container">
+      <div class="chat-bubble drive">What is your drive?</div>
+      <div class="chat-bubble vision">My drive is rooted in creating transformative solutions that empower others,
+        particularly in education, agriculture, healthcare, and security. I am passionate about leveraging technology to
+        address societal challenges, fostering accessibility, and inspiring the next generation. With a vision for
+        lasting impact, I strive to contribute meaningfully to development of my society. </div>
+      <div class="chat-bubble drive">What is your Vision?</div>
+      <div class="chat-bubble vision">
+        My vision is to create a world where technology bridges gaps in education, disparity in healthcare access, and
+        personal security. I aspire to build transformative systems that empower individuals and communities,
+        particularly in underrepresented and underserved areas in Africa. By integrating AI-driven solutions and
+        fostering local creativity, my goal is to inspire progress and establish sustainable advancements that redefine
+        societal norms.</div>
+    </div>
+  </div>
+
+  <!-- Languages and Tools Section -->
+  <div id="section3" class="section">
+    <h2 class="title is-3">Languages and Tools</h2>
+    <div class="lang-container">
+      <div class="lang-bubble">What languages and Frameworks do you know?</div>
+      <div class="lang-bubble">
+        ■ Dart (Flutter) <br>
+        ■ Python (Flask, Django)<br>
+        ■ PHP (Yii framework) <br>
+        ■ JavaScript and Typescript <br>
+        ■ C <br>
+        ■ SQL
+      </div>
+      <div class="lang-bubble">What tools are you familiar with?</div>
+      <div class="lang-bubble">
+        ■ Database Management: MySQL, SQLite, MongoDB, Objectbox, and Redis <br>
+        ■ Version Control: Git, GitHub/GitLab<br>
+        ■ APIs: RESTful API development and integration</div>
+      <div class="lang-bubble">What are your Deployment and Application Management competencies?</div>
+      <div class="lang-bubble">
+        ■ UI/UX: Responsive design principles, Prototyping, and wireframing Flutter <br>
+        ■ Testing and Debugging: Unit testing, Debugging tools, and strategies <br>
+        ■ Hosting and Deployment: Google Play Store (Flutter apps), Web server
+        configuration (Nginx, Apache)</div>
+
+    </div>
+  </div>
+
+  <!-- Projects Section -->
+  <div id="section4" class="section" style="background-color:rgb(240, 219, 230);">
+    <h2 class="title is-3">Projects</h2>
+    <div class="project-container">
+      <div class="project-box">
+        <div class="icon-with-text" style="justify-content: center;"> <span
+            style="padding-right: 5px; text-align: justify;"> <i class="fa-brands fa-python"
+              style="color: #5779e7; padding: 8px;"></i> Varsity Campus </span>
+          <div class="button-container"> <button class="button is-info modalBtn">Details</button> <a
+              href="https://github.com/azinoreva/varsity_campus"> <button class="button is-dark">Github <i
+                  class="fa-brands fa-github"></i></button> </a>
+            <p id="projectParagraph">A web app for universities to facilitate collaboration across institutions</p>
+          </div>
+          <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="box"> <span class="close">&times;</span>
+                <h3 class="title is-4">Varsity Campus</h3> A web app designed for universities to facilitate
+                collaboration across institutions. Built using Flask and SQLite, with ongoing integration of AI
+                features. Initial Prototype: <a
+                  href="https://github.com/azinoreva/varsity_campus">https://github.com/azinoreva/varsity_campus</a>.
+                Request for private Github link for the updated project that uses React Native.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-box">
+        <div class="icon-with-text" style="justify-content: center;"> <span> 
+          <i class="lni lni-dart"></i>
+            Savorly </span>
+          <div class="button-container"> <button class="button is-info modalBtn">Details</button> <a
+              href="https://github.com/azinoreva/savorly"> <button class="button is-dark">Github <i
+                  class="fa-brands fa-github"></i></button> </a>
+            <p id="projectParagraph">An app for nutritionists to create healthy meal plans for users.</p>
+          </div>
+          <div class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="box"> <span class="close">&times;</span>
+                <h3 class="title is-4">Savorly</h3> A flutter app that allows users to create healthy meal plans with
+                the help of nutritionists. The app uses a database (objectbox) to store user information and meal plans,
+                and provides features such as meal tracking and reminders. The app is designed to be user-friendly and
+                easy to navigate, with a clean and modern interface. Initial Prototype: <a
+                  href="https://github.com/azinoreva/savorly">https://github.com/azinoreva/savorly</a>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+
+        <!-- Hire or Employ Me Section -->
+        <div id="section5" class="section">
+          <h2 class="title is-3">Hire or Employ Me</h2>
+          <div class="buttons" style="justify-content: center; ;">
+            <a class="button is-info" style="margin: 20px;" href="mailto:azinoreva@gmail.com"> <i class="fa-solid fa-envelope" style = "padding: 5px;"></i> Email</a>
+            <a class="button is-dark" style="margin: 20px;" href="https://github.com/azinoreva"> <i class="fa-brands fa-github" style = "padding: 5px;"></i> GitHub</a>
+            <a class="button is-link" style="margin: 20px;" href="http://linkedin.com/in/azino-oreva"><i class="fa-brands fa-linkedin" style = "padding: 5px;"></i> LinkedIn</a>
+            <a class="button is-primary" style="margin: 20px;" href="tel:+2349054821617">📞 Phone</a>
+            <a class="button is-success" style="margin: 20px;" href="https://wa.me/2349054821617"> <i class="fa-brands fa-whatsapp" style = "padding: 5px;"></i> WhatsApp</a>
+          </div>
+        </div>
+
+        <script src='script.js'>
+        </script>
+</body>
+
+</html>
